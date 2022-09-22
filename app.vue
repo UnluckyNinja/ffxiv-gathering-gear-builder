@@ -9,6 +9,15 @@ useHead({
   ],
 })
 
+const cookieLocale = useCookie<string>('locale')
+const locale = useLocale()
+if (cookieLocale)
+  locale.value = cookieLocale.value
+
+watch(locale, (newVal) => {
+  cookieLocale.value = newVal
+})
+
 const color = useColorMode()
 color.preference = 'dark'
 </script>
