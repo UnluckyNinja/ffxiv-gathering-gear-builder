@@ -1,3 +1,6 @@
 {
+  "rules": {
+    "vue/attribute-hyphenation": "off"
+  },
   "extends": "@antfu"
 }
