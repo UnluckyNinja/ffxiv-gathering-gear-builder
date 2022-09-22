@@ -8,7 +8,7 @@ const props = defineProps<{
   modelValue: {
     id?: keyof typeof gears
     hq?: boolean
-    materias?: (Materia | undefined)[]
+    materias?: (Materia | null)[]
   }
 }>()
 
@@ -53,7 +53,7 @@ function getModelValue() {
 const onSelectGear = (event: any) => {
   id.value = event.itemID
   isHQ.value = event.isHQ
-  materias.value = [undefined, undefined, undefined, undefined, undefined]
+  materias.value = [null, null, null, null, null]
   emits('update:modelValue', getModelValue())
   showGearSelect.value = false
 }
@@ -69,7 +69,7 @@ const onSelectMateria = (event: any) => {
 
 const onDelete = () => {
   id.value = '0'
-  materias.value = [undefined, undefined, undefined, undefined, undefined]
+  materias.value = [null, null, null, null, null]
   emits('update:modelValue', getModelValue())
 }
 

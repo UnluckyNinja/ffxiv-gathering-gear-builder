@@ -3,7 +3,7 @@ import type { UnwrapRef } from 'vue'
 import type gears from '~~/data/gears'
 import type { Materia } from '~~/data/materias'
 
-export function useGearStats(gearID?: MaybeRef<keyof typeof gears>, materias?: MaybeRef<(Materia | undefined)[]>) {
+export function useGearStats(gearID?: MaybeRef<keyof typeof gears>, materias?: MaybeRef<(Materia | null)[]>) {
   const { id, gear } = useGear(gearID)
 
   const maxGathering = computed(() => gear.base.value.max.gathering)

@@ -1,69 +1,80 @@
 import type gears from '~~/data/gears'
 import type { Materia } from '~~/data/materias'
 
-const asGearset = <T>(value: { [k in keyof T]: { id: keyof typeof gears; hq: boolean; materias: (Materia | undefined)[] } }) => value
+const asGearset = <T>(
+  value: {
+    [k in keyof T]: {
+      id: keyof typeof gears
+      hq: boolean
+      materias: (Materia | null)[]
+    }
+  }) => value
+
+function getEmptyMaterias() {
+  return [null, null, null, null, null]
+}
 
 const getDefaultGearset = () => {
   return asGearset({
     mainhand: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     head: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     body: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     hands: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     legs: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     feet: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     offhand: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     ears: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     neck: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     wrist: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     finger1: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
     finger2: {
       id: '0',
       hq: false,
-      materias: [undefined, undefined, undefined, undefined, undefined],
+      materias: getEmptyMaterias(),
     },
   })
 }

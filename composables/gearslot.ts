@@ -9,7 +9,7 @@ import type { Materia } from '~~/data/materias'
 export function useGearSlot(
   slot: MaybeRef<Gear['slot']>,
   gearID?: MaybeRef<keyof typeof gears>,
-  initialMaterias?: MaybeRef<(Materia | undefined)[]>,
+  initialMaterias?: MaybeRef<(Materia | null)[]>,
 ) {
   const _slot = ref(slot)
   const { id, gear } = useGear(gearID ?? '0', undefined, initialMaterias)

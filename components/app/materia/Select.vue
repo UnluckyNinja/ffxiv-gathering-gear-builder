@@ -8,7 +8,7 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits<{
-  (event: 'materiaSelected', materia: Materia | undefined): void
+  (event: 'materiaSelected', materia: Materia | null): void
 }>()
 
 const borderClasses = {
@@ -100,7 +100,7 @@ function onSelect(item: Materia) {
     </div>
     <div
       flex items-center justify-center hover="bg-light/20 cursor-pointer"
-      @click="emits('materiaSelected', undefined)"
+      @click="emits('materiaSelected', null)"
     >
       {{ $t.ui.materia.remove }}
     </div>

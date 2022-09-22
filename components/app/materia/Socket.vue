@@ -4,7 +4,7 @@ import type { Materia } from '~~/data/materias'
 
 const props = defineProps<{
   type: 'socket' | 'amm' | 'none'
-  materia: Materia | undefined
+  materia: Materia | null
 }>()
 
 const borderStyles = {

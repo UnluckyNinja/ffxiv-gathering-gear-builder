@@ -1,8 +1,8 @@
 import type { MaybeRef } from '@vueuse/core'
 import type { Materia } from '~~/data/materias'
 
-export function useMaterias(initial?: MaybeRef<(Materia | undefined)[]>) {
-  const materias = shallowRef(initial ?? [undefined, undefined, undefined, undefined, undefined])
+export function useMaterias(initial?: MaybeRef<(Materia | null)[]>) {
+  const materias = shallowRef(initial ?? [null, null, null, null, null])
 
   return {
     materias,

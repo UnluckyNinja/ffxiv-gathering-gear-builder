@@ -2,7 +2,11 @@ import type { MaybeRef } from '@vueuse/core'
 import gears from '~~/data/gears'
 import type { Materia } from '~~/data/materias'
 
-export function useGear(gearID?: MaybeRef<keyof typeof gears>, hq?: MaybeRef<boolean>, initialMaterias?: MaybeRef<(Materia | undefined)[]>) {
+export function useGear(
+  gearID?: MaybeRef<keyof typeof gears>,
+  hq?: MaybeRef<boolean>,
+  initialMaterias?: MaybeRef<(Materia | null)[]>,
+) {
   const id = ref(gearID ?? '0')
 
   const base = computed(() => {
