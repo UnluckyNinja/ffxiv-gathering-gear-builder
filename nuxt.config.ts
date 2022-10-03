@@ -10,6 +10,9 @@ export default defineNuxtConfig({
   ],
   vite: {
     devBundler: 'legacy',
+    define: {
+      'import.meta.vitest': 'undefined',
+    },
   },
   experimental: {
     reactivityTransform: true,
