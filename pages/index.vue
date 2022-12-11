@@ -17,7 +17,7 @@ const clientSave = useCookie <any> ('gear-set-1', { maxAge: 3600 * 24 * 356 })
 const { gearset } = useGearset('gear-set-1', clientSave.value)
 
 const cookieFoods = useCookie<{ id: keyof typeof foods; hq: boolean }[]>('highlight-foods', { maxAge: 3600 * 24 * 365 })
-const { foodList } = useFoodList(cookieFoods.value)
+const { foodList } = useFoodList(cookieFoods.value!)
 
 if (sharedData.gearset)
   gearset.value = sharedData.gearset

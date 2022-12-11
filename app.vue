@@ -11,7 +11,7 @@ useHead({
 
 const cookieLocale = useCookie<string>('locale')
 const locale = useLocale()
-if (cookieLocale)
+if (cookieLocale?.value)
   locale.value = cookieLocale.value
 
 watch(locale, (newVal) => {
