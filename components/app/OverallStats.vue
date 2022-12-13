@@ -4,7 +4,7 @@ const food = reactive(useFood())
 const foodStat = reactive(useFoodStats(food, {
   gathering: computed(() => stats.totalGathering),
   perception: computed(() => stats.totalPerception),
-  gp: computed(() => stats.totalGP),
+  gp: computed(() => stats.totalGP + 400),
 }))
 
 const { foodList } = useFoodList()
@@ -42,7 +42,7 @@ watch(foodList, (newVal) => {
         {{ stats.totalPerception + foodStat.perception }}
       </div>
       <div text-blue font-bold>
-        {{ stats.totalGP + foodStat.gp }}
+        {{ stats.totalGP + foodStat.gp + 400 }}
       </div>
       <div>=</div>
       <div text-yellow font-bold>
@@ -77,7 +77,12 @@ watch(foodList, (newVal) => {
       <div col-span-3 grid grid-cols-3 text-base>
         <div>{{ $t.ui.stat.gathering }}</div>
         <div>{{ $t.ui.stat.perception }}</div>
-        <div>{{ $t.ui.stat.gp }}</div>
+        <div
+          underline underline-dotted cursor-help :title="$t.ui.statsGPHint"
+          style="text-underline-position: under;"
+        >
+          {{ $t.ui.stat.gp }}(?)
+        </div>
       </div>
       <div col-span-1 />
       <div col-span-3 grid grid-cols-3 text-base>

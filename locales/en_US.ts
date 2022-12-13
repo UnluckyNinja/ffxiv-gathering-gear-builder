@@ -169,6 +169,7 @@ export default {
       gp: 'GP',
     },
     totalstats: 'Overall Stats',
+    statsGPHint: 'Character comes with 400GP by default',
     gearslot: {
       empty: 'Select Gear',
     },

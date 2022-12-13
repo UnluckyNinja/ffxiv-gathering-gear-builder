@@ -16,15 +16,29 @@ onMounted(() => {
   const store = useGearsetStore()
   const { foodList } = useFoodList()
 
-  if (sharedData.gearset)
+  if (sharedData.gearset) {
     store.gearset = sharedData.gearset
-  else if (localGearset.value)
-    store.gearset = JSON.parse(localGearset.value)
+  }
+  else if (localGearset.value) {
+    try {
+      store.gearset = JSON.parse(localGearset.value)
+    }
+    catch (e) {
+      localGearset.value = ''
+    }
+  }
 
-  if (sharedData.foodList)
+  if (sharedData.foodList) {
     foodList.value = sharedData.foodList
-  else if (localFood.value)
-    foodList.value = JSON.parse(localFood.value)
+  }
+  else if (localFood.value) {
+    try {
+      foodList.value = JSON.parse(localFood.value)
+    }
+    catch (e) {
+      localFood.value = ''
+    }
+  }
 
   watch(() => store.gearset, (newVal) => {
     // when using useCookie, the ref root value has to be different object to update in-browser cookie

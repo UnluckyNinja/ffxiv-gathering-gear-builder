@@ -169,6 +169,7 @@ export default {
       gp: '采',
     },
     totalstats: '总计数据',
+    statsGPHint: '角色自带400采集力',
     gearslot: {
       empty: '点击槽位选择装备',
     },
