@@ -4,7 +4,7 @@
 
 [build]
   publish = "dist"
-  command = "pnpm dev"
+  command = "pnpm build"
 
 [[redirects]]
   from = "/*"
