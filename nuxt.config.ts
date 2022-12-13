@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',
