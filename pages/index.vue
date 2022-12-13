@@ -7,6 +7,8 @@ if (route.query.build) {
   const serialized = atou(decodeURIComponent(route.query.build as string))
   sharedData = JSON.parse(serialized)
 }
+
+const loading = ref(true)
 onMounted(() => {
   const localGearset = useLocalStorage<any>('gearset', null)
   const localFood = useLocalStorage<any>('food', null)
@@ -17,16 +19,16 @@ onMounted(() => {
   if (sharedData.gearset)
     store.gearset = sharedData.gearset
   else if (localGearset.value)
-    store.gearset = localGearset.value
+    store.gearset = JSON.parse(localGearset.value)
 
   if (sharedData.foodList)
     foodList.value = sharedData.foodList
   else if (localFood.value)
-    foodList.value = localFood.value
+    foodList.value = JSON.parse(localFood.value)
 
   watch(() => store.gearset, (newVal) => {
     // when using useCookie, the ref root value has to be different object to update in-browser cookie
-    localGearset.value = newVal
+    localGearset.value = JSON.stringify(newVal)
     sharedData.gearset = newVal
     const json = JSON.stringify(sharedData)
     const serialized = encodeURIComponent(utoa(json))
@@ -34,17 +36,23 @@ onMounted(() => {
   }, { deep: true })
 
   watch(foodList, (newVal) => {
-    localFood.value = [...newVal]
+    localFood.value = JSON.stringify(newVal)
     sharedData.foodList = newVal
     const json = JSON.stringify(sharedData)
     const serialized = encodeURIComponent(utoa(json))
     history.replaceState({}, '', `?build=${serialized}`)
   }, { deep: true })
+  loading.value = false
 })
 </script>
 
 <template>
   <main max-w-6xl mx-auto relative>
+    <Transition name="fade">
+      <div v-if="loading" absolute inset-0 flex items-center justify-center text-5xl z-100 bg-dark>
+        <span animate-pulse>Loading...</span>
+      </div>
+    </Transition>
     <div grid grid-cols-15 place-content-stretch justify-center>
       <div col-span-11 m-1 grid grid-rows-6 grid-cols-2 grid-flow-col children:col-span-1>
         <AppGearSlot gear-slot="mainhand" />
@@ -75,4 +83,15 @@ onMounted(() => {
     </div> -->
   </main>
 </template>
-searilize
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
