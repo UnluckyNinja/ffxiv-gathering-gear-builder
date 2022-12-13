@@ -10,6 +10,9 @@
     "postinstall": "nuxi prepare",
     "generate": "nuxi generate"
   },
+  "dependencies": {
+    "fflate": "^0.7.4"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^0.33.1",
     "@iconify-json/carbon": "^1.1.11",
@@ -17,14 +20,12 @@
     "@nuxtjs/color-mode": "^3.2.0",
     "@pinia/nuxt": "^0.4.6",
     "@unocss/nuxt": "^0.47.5",
+    "@unocss/transformer-directives": "^0.47.6",
     "@vueuse/nuxt": "^9.6.0",
     "eslint": "^8.29.0",
     "nuxt": "^3.0.0",
     "pinia": "^2.0.28",
     "typescript": "^4.9.4",
     "vitest": "^0.25.7"
-  },
-  "dependencies": {
-    "fflate": "^0.7.4"
   }
 }

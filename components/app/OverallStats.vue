@@ -1,8 +1,5 @@
 <script setup lang="ts">
-const { gearset } = useGearset('gear-set-1')
-const { ..._stats } = useGearsetStats(gearset)
-
-const stats = reactive(_stats)
+const stats = reactive(useGearsetStats())
 const food = reactive(useFood())
 const foodStat = reactive(useFoodStats(food, {
   gathering: computed(() => stats.totalGathering),

@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { GearType } from '~~/composables/store/gearset'
 import type { Gear } from '~~/data/gears'
 import { gearCategoryIcon } from '~~/data/gears'
 
 const props = defineProps<{
   iconID: string
   isHQ?: boolean
-  gearSlot?: Gear['slot']
+  gearSlot?: GearType
 }>()
 const iconStyle = computed(() => {
   return {

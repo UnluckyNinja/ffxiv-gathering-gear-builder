@@ -1,21 +1,23 @@
-import type { MaybeRef } from '@vueuse/core'
 import type { UnwrapRef } from 'vue'
+import { storeToRefs } from 'pinia'
+import type { MaybeRef } from '@vueuse/core'
+
 import type gears from '~~/data/gears'
 import type { Materia } from '~~/data/materias'
 
-export function useGearStats(gearID?: MaybeRef<keyof typeof gears>, materias?: MaybeRef<(Materia | null)[]>) {
-  const { id, gear } = useGear(gearID)
+export function useGearStats(gearID?: MaybeRef<keyof typeof gears>, hq?: MaybeRef<boolean>, materias?: MaybeRef<(Materia | null)[]>) {
+  const { id, gear } = useGear(gearID, hq)
 
-  const maxGathering = computed(() => gear.base.value.max.gathering)
-  const maxPerception = computed(() => gear.base.value.max.perception)
-  const maxGP = computed(() => gear.base.value.max.gp)
+  const maxGathering = computed(() => gear.base.max.gathering)
+  const maxPerception = computed(() => gear.base.max.perception)
+  const maxGP = computed(() => gear.base.max.gp)
 
   const { materias: materiasArray } = useMaterias(materias)
 
   // dry helper function
   const calcMateriasStat = (type: Materia['type']) => {
     return materiasArray.value.filter((m, idx) =>
-      m && m.type === type && idx < (gear.base.value.canOvermeld ? 5 : gear.base.value.socketCount))
+      m && m.type === type && idx < (gear.base.canOvermeld ? 5 : gear.base.socketCount))
       .reduce((total, m) => total + (m?.value ?? 0), 0)
   }
   const materiaGathering = computed(() => calcMateriasStat('gathering'))
@@ -23,20 +25,21 @@ export function useGearStats(gearID?: MaybeRef<keyof typeof gears>, materias?: M
   const materiaGP = computed(() => calcMateriasStat('gp'))
 
   const gathering = computed(() => {
-    const stat = gear.isHq ? gear.base.value.statsHQ.gathering : gear.base.value.stats.gathering
+    const stat = gear.isHq ? gear.base.statsHQ.gathering : gear.base.stats.gathering
     return Math.min(stat + materiaGathering.value, maxGathering.value)
   })
   const perception = computed(() => {
-    const stat = gear.isHq ? gear.base.value.statsHQ.perception : gear.base.value.stats.perception
+    const stat = gear.isHq ? gear.base.statsHQ.perception : gear.base.stats.perception
     return Math.min(stat + materiaPerception.value, maxPerception.value)
   })
   const gp = computed(() => {
-    const stat = gear.isHq ? gear.base.value.statsHQ.gp : gear.base.value.stats.gp
+    const stat = gear.isHq ? gear.base.statsHQ.gp : gear.base.stats.gp
     return Math.min(stat + materiaGP.value, maxGP.value)
   })
 
   return {
     gearID: id,
+    gear,
     materias: materiasArray,
     gathering,
     perception,
@@ -50,10 +53,10 @@ export function useGearStats(gearID?: MaybeRef<keyof typeof gears>, materias?: M
   }
 }
 
-export function useGearsetStats(_gearset: MaybeRef<ReturnType<typeof useGearset>['gearset']>) {
-  const gearset = ref(_gearset)
+export function useGearsetStats() {
+  const { gearset } = storeToRefs(useGearsetStore())
   const allGearsStats = computed(() => {
-    return Object.values(gearset.value).map(gear => useGearStats(gear.id, gear.materias))
+    return Object.values(gearset.value).map(gear => useGearStats(gear.id, gear.hq, gear.materias))
   })
   const totalGathering = computed(() => {
     return allGearsStats.value.map(stat => stat.gathering.value).reduce((total, curr) => total + curr, 0)

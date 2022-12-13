@@ -1,8 +1,9 @@
 <script setup lang='ts'>
-import type { Gear } from '~~/data/gears'
+import type { GearType } from '~~/composables/store/gearset'
+import gears from '~~/data/gears'
 
 const props = defineProps<{
-  gears: Gear[]
+  type: GearType
 }>()
 
 const emits = defineEmits<{
@@ -10,7 +11,8 @@ const emits = defineEmits<{
 }>()
 
 const sortedGears = computed(() => {
-  return props.gears.slice().sort((a, b) => b.itemLevel - a.itemLevel)
+  const items = Object.values(gears).filter(gear => gear.slot === props.type)
+  return items.sort((a, b) => b.itemLevel - a.itemLevel)
 })
 
 const selectGear = (itemID: string, isHQ: boolean) => {

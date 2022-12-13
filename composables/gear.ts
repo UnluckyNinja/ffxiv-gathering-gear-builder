@@ -22,10 +22,10 @@ export function useGear(
 
   return {
     id,
-    gear: {
+    gear: reactive({
       base,
       isHq,
       materias,
-    } as const,
+    }),
   }
 }
