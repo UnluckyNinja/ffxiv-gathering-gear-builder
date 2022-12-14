@@ -68,7 +68,7 @@ const hintColor = computed(() => {
       v-for="key, i in (['gathering', 'perception', 'gp'] as const)"
       :key="i"
       col-span-1 flex flex-col divide-y cursor-help class="group"
-      :title="`${food.stats[key] * 100}%`"
+      :title="`${isHQ ? food.statsHQ[key] * 100 : food.stats[key] * 100}%`"
       :class="hintColor[key]"
     >
       <div group-hover="text-sm">
